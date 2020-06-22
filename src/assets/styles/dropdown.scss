@@ -1,0 +1,157 @@
+$generic_light_blue: #e8ecf1;
+$generic_white: #ffffff;
+$generic_blue: #0256ff;
+$generic_black: #878787;
+$generic_dark_black: #474546;
+$generic_grey: #ccc;
+$generic_green: #50cb33;
+$generic_light_purple: rgba(239, 226, 250, 0.88);
+$generic_box_shadow: 2px 0 5px -2px rgba(0,0,0,0.3), 2px 0 10px -2px rgba(0,0,0,.1) inset;
+$fashioned_bezier: cubic-bezier(0,1.3,.57,1.07);
+
+/************************************************
+    DropDown
+ ************************************************/
+
+.dropdown {
+  padding: 5px 0;
+  user-select: none;
+  border-radius: 4px;
+
+  &[data-theme='black'] {
+    background-color: $generic_dark_black;
+    li {
+      color: $generic_white;
+
+      &:hover {
+        background-color: $generic_black;
+      }
+    }
+  }
+
+  &[data-theme='white'] {
+    background-color: $generic_white;
+    li {
+      color: $generic_black;
+
+      &:hover {
+        background-color: $generic_light_blue;
+      }
+    }
+  }
+
+  ul {
+
+    li {
+      padding: 9px 15px;
+      cursor: pointer;
+      color: $generic_black;
+      font-size: 13px;
+      font-family: $Helvetica_font;
+    }
+  }
+}
+
+/************************************************
+    Select - DropDown
+ ************************************************/
+
+.select_dropdown {
+  width: 100%;
+  font-family: $Helvetica_font;
+  color: $generic_dark_black;
+  position: relative;
+  user-select: none;
+
+  &_header {
+    width: 100%;
+    padding: 9px 15px;
+    background-color: $generic_white;
+    box-shadow: 1px -1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+
+    &_title {
+      font-size: 13px;
+      color: $generic_black;
+      margin-right: 10px;
+    }
+
+    &_icon {
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+  }
+
+  &_list {
+    position: absolute;
+    top: calc(100% + 3px);
+    width: 100%;
+    left: 0;
+    background-color: $generic_white;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px) scaleY(0.7);
+    box-shadow: 0 5px 10px -2px rgba(0,0,0,.25);
+    transition: opacity .24s $fashioned_bezier, transform 1s $fashioned_bezier;
+    transform-origin: top;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scaleY(1);
+      transition: .14s $fashioned_bezier;
+      z-index: 200;
+    }
+
+    &_item {
+      padding: 9px 15px;
+      user-select: none;
+      transition: .15 $fashioned_bezier;
+      cursor: pointer;
+      position: relative;
+      color: $generic_dark_black;
+      font-size: 13px;
+      overflow: hidden;
+
+      &:hover {
+        background-color: rgba(204, 204, 204, 0.33);
+      }
+    }
+  }
+
+}
+
+span.ripple {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: #ccc;
+  border-radius: 50%;
+  animation: ripple 1s cubic-bezier(.71,1.36,.59,.81) infinite;
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.projects_calendar {
+  position: absolute;
+  top: 0;
+  z-index: 200;
+}

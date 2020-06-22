@@ -1,0 +1,534 @@
+@import "variables";
+
+$profile_side_width: 450px;
+$profile_form_header_height: 70px;
+
+.dashboard_main_profile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  opacity: 0;
+  transform: scale(0.99);
+  pointer-events: none;
+  animation: loaded .8s $fashioned_bezier .1s forwards;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  // dashboard_main_profile_side
+  &_side {
+    width: $profile_side_width;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 20px 40px 80px;
+
+    // dashboard_main_profile_side_card
+    &_card {
+      padding: 40px;
+      background-color: $generic_white;
+      box-shadow: 0 0 4px -1px rgba(0,0,0,0.2);
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      width: 100%;
+      margin-bottom: 40px;
+      text-align: center;
+
+      // dashboard_main_profile_side_card_title
+      &_title {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-family: $Helvetica_font;
+        font-weight: 600;
+
+        color: $generic_grey;
+
+        &.need_help {
+          color: $generic_dark_black;
+          font-size: 18px;
+          text-transform: none;
+          font-family: $Helvetica_font;
+          font-weight: 600;
+        }
+
+      }
+
+      // dashboard_main_profile_side_card_input
+      &_input {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 20px auto;
+
+        // dashboard_main_profile_side_card_input_image
+        &_image {
+          width: 100%;
+          height: 100%;
+          border-radius: 200px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 200px;
+          }
+
+          &_icon {
+            position: absolute;
+            bottom: 2px;
+            right: -7px;
+            padding: 5px;
+            width: 35px;
+            height: 35px;
+            background-color: $generic_skyblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 200px;
+            box-shadow: 0 2px 3px -1px rgba(0,0,0,.3);
+
+            svg {
+              fill: white;
+              margin-top: 2px;
+            }
+          }
+
+        }
+
+        input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+      }
+
+      &_name {
+        font-size: 16px;
+        font-family: $Helvetica_font;
+        font-weight: 600;
+        color: $generic_dark_black;
+        margin: 10px 0;
+      }
+
+      &_vector {
+
+        &_icon {
+          width: 120px;
+          height: 120px;
+          margin: 0 auto;
+
+          svg {
+            width: 100%;
+            height: 100%;
+            fill: $generic_grey;
+          }
+
+        }
+      }
+
+      &_description {
+        font-size: 14px;
+        color: $generic_grey;
+        font-family: $Ubuntu_font;
+        line-height: 1.7;
+        margin: 15px 0;
+      }
+
+      &_action {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        &_button {
+          border-radius: 4px;
+          background-color: $generic_skyblue;
+          color: $generic_white;
+          height: 34px;
+          text-align: center;
+          text-transform: uppercase;
+          user-select: none;
+        }
+
+      }
+
+    }
+  }
+
+  // dashboard_main_profile_main
+  &_main {
+    width: calc(100% - #{$profile_side_width});
+    padding: 40px 80px 40px 20px;
+
+    &_card {
+      padding: 40px;
+      background-color: $generic_white;
+      box-shadow: 0 0 4px -1px rgba(0,0,0,0.2);
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      width: 100%;
+      margin-bottom: 40px;
+      text-align: left;
+
+      &_title {
+        font-family: $Helvetica_font;
+        font-weight: 600;
+        color: $generic_dark_black;
+      }
+
+      &_description {
+        margin: 20px 0 0;
+        display: flex;
+        //justify-content: space-between;
+        font-family: $Helvetica_font;
+        font-weight: 600;
+        line-height: 1.5;
+
+        &_data {
+          font-size: 12px;
+          color: $generic_grey;
+          width: 50%;
+          margin-right: 15px;
+        }
+
+        &_estimated {
+          font-size: 12px;
+          display: flex;
+          white-space: nowrap;
+
+          p {
+            color: $generic_grey;
+
+            &:first-child {
+              margin-right: 10px;
+              color: $generic_black;
+            }
+          }
+        }
+
+      }
+
+      &.form {
+        padding: 0;
+
+        .dashboard_main_profile_main_card {
+
+          &_header{
+            width: 100%;
+            height: $profile_form_header_height;
+            border-bottom: 1px solid $generic_grey;
+            box-shadow: 0 1px 2px -1px rgba(0,0,0,0.4);
+            display: flex;
+            padding: 0 40px;
+
+            &_item {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              margin-right: 30px;
+              position: relative;
+              padding: 0 10px;
+              color: $generic_grey;
+              font-family: $Helvetica_font;
+              font-weight: 600;
+              cursor: pointer;
+              transition: .2s ease-in-out;
+
+              &:hover {
+                color: $generic_black;
+              }
+
+              &.active {
+                color: $generic_dark_black;
+
+                &::before {
+                  transform: translateX(-50%) scaleX(1);
+                  opacity: 1;
+                }
+              }
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                height: 2px;
+                background-color: $generic_skyblue;
+                width: 100%;
+                transform: translateX(-50%) scaleX(0.7);
+                opacity: 0;
+                pointer-events: none;
+                transition: .2s ease-in-out;
+              }
+
+            }
+          }
+
+          &_container {
+
+            &_top {
+              width: 100%;
+              border-bottom: 1px solid $generic_light_grey;
+              padding: 20px 40px;
+
+              &_item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+
+                &_controls {
+                  width: 50%;
+                  margin-right: 40px;
+                  position: relative;
+
+                  &:last-child {
+                    margin-right: 0;
+                  }
+
+                  &_input {
+                    margin-top: 20px;
+
+                    &_calendar {
+                      position: absolute;
+                      z-index: 2;
+                    }
+
+                    &_label {
+                      font-size: 13px;
+                      font-family: $Helvetica_font;
+                      font-weight: 600;
+                      color: $generic_grey;
+                      padding: 6px 1px;
+                      position: absolute;
+                      top: 20px;
+                      transition: .2s ease;
+                      pointer-events: none;
+                      user-select: none;
+
+                      &.active {
+                        top: 0px;
+                      }
+                    }
+
+                    input {
+                      width: 100%;
+                      border: none;
+                      border-bottom: 2px solid $generic_light_grey;
+                      padding: 6px 1px;
+                      font-size: 14px;
+                      font-family: $Helvetica_font;
+                      font-weight: 600;
+                      color: $generic_dark_black;
+                      transition: .2s ease-in-out;
+
+                      &:focus {
+                        border-bottom: 2px solid $generic_skyblue;
+
+                        ~ .dashboard_main_profile_main_card_container_top_item_controls_input_label {
+                          top: 0;
+                          color: $generic_black;
+                        }
+
+                      }
+
+                      &:valid{
+
+                        ~ .dashboard_main_profile_main_card_container_top_item_controls_input_label {
+                          top: 0;
+                        }
+
+                      }
+
+                    }
+                  }
+                }
+              }
+
+            }
+
+            &_bottom {
+              padding: 20px 40px;
+
+              &_header {
+                font-size: 11px;
+                color: $generic_grey;
+                font-family: $Helvetica_font;
+                font-weight: 600;
+                margin: 20px 2px;
+                text-transform: uppercase;
+              }
+
+              &_item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+
+                &_controls {
+                  width: 50%;
+                  margin-right: 40px;
+                  position: relative;
+
+                  &.fullWidth {
+                    width: 100%;
+                  }
+
+                  &:last-child {
+                    margin-right: 0;
+                  }
+
+                  &_input {
+                    margin-top: 20px;
+
+                    &_calendar {
+                      position: absolute;
+                    }
+
+                    &_label {
+                      font-size: 13px;
+                      font-family: $Helvetica_font;
+                      font-weight: 600;
+                      color: $generic_grey;
+                      padding: 6px 1px;
+                      position: absolute;
+                      top: 20px;
+                      transition: .2s ease;
+                      pointer-events: none;
+                      user-select: none;
+
+                      &.active {
+                        top: 0;
+                      }
+                    }
+
+                    input {
+                      width: 100%;
+                      border: none;
+                      border-bottom: 2px solid $generic_light_grey;
+                      padding: 6px 1px;
+                      font-size: 14px;
+                      font-family: $Helvetica_font;
+                      font-weight: 600;
+                      color: $generic_dark_black;
+                      transition: .2s ease-in-out;
+
+                      &:focus {
+                        border-bottom: 2px solid $generic_skyblue;
+
+                        ~ .dashboard_main_profile_main_card_container_bottom_item_controls_input_label {
+                          top: 0;
+                          color: $generic_black;
+                        }
+
+                      }
+
+                      &:valid{
+
+                        ~ .dashboard_main_profile_main_card_container_bottom_item_controls_input_label {
+                          top: 0;
+                        }
+
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+
+          }
+
+        }
+      }
+
+    }
+
+    &_card_controls {
+      width: 50%;
+      margin-right: 40px;
+      position: relative;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &_input {
+        margin-top: 20px;
+
+        &_calendar {
+          position: absolute;
+          z-index: 2;
+        }
+
+        &_label {
+          font-size: 13px;
+          font-family: $Helvetica_font;
+          font-weight: 600;
+          color: $generic_grey;
+          padding: 6px 1px;
+          position: absolute;
+          top: 20px;
+          transition: .2s ease;
+          pointer-events: none;
+          user-select: none;
+
+          &.active {
+            top: 0px;
+          }
+        }
+
+        input {
+          width: 100%;
+          border: none;
+          border-bottom: 2px solid $generic_light_grey;
+          padding: 6px 1px;
+          font-size: 14px;
+          font-family: $Helvetica_font;
+          font-weight: 600;
+          color: $generic_dark_black;
+          transition: .2s ease-in-out;
+
+          &:focus {
+            border-bottom: 2px solid $generic_skyblue;
+
+            ~ .dashboard_main_profile_main_card_controls_input_label {
+              top: 0;
+              color: $generic_black;
+            }
+
+          }
+
+          &:valid{
+
+            ~ .dashboard_main_profile_main_card_controls_input_label {
+              top: 0;
+            }
+
+          }
+
+        }
+      }
+    }
+
+  }
+
+}
+
+@keyframes loaded {
+  0% {
+    opacity: 0;
+    transform: scale(0.99);
+    pointer-events: none;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+}

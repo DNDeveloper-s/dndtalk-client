@@ -1,0 +1,26 @@
+
+$generic_white: #ffffff;
+$generic_blue: #0256ff;
+$Helvetica_font: 'Helvetica', sans-serif;
+
+.Button {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  color: $generic_white;
+  font-family: $Helvetica_font;
+  background-color: $generic_blue;
+  font-size: 13px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px -2px rgba(0,0,0,.5);
+  cursor: pointer;
+  overflow: hidden;
+  transition: .2s ease-in-out;
+  position: relative;
+
+  &:hover {
+    background-color: rgba(18, 96, 255, 0.94);
+  }
+}

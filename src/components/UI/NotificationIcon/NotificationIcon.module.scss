@@ -1,0 +1,35 @@
+@import "../../../assets/styles/variables";
+
+.NotificationIcon {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  border-radius: 200px;
+
+  .Before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    //box-shadow: 0 0 5px $generic_light_red;
+    border: 1px solid $generic_light_red;
+    background: $generic_light_red;
+    border-radius: 200px;
+  }
+
+  .After {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 5px $generic_light_red;
+    border-radius: 200px;
+  }
+
+}

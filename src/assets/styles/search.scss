@@ -1,0 +1,173 @@
+@import "variables";
+
+$search_box_height: 600px;
+$search_box_header_height: 60px;
+
+.search_box {
+  width: 100%;
+  height: $search_box_height;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $generic_white;
+  box-shadow: 0 10px 20px -6px rgba(0,0,0,0.36), 0 1px 2px 0 rgba(0,0,0,0.2);
+  border-radius: 0 0 4px 4px;
+  z-index: 200;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  &_header {
+    width: 100%;
+    height: $search_box_header_height;
+    display: flex;
+    padding: 0 40px;
+    border-bottom: 1px dashed rgba(0,0,0,.15);
+
+    &_item {
+      margin-right: 20px;
+      padding: 0 10px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: $generic_black;
+      cursor: pointer;
+      transition: .2s $fashioned_bezier;
+      font-size: 14px;
+
+      &:hover {
+        color: $generic_dark_black;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        opacity: 0;
+        height: 3px;
+        width: 80%;
+        background-color: $generic_blue;
+        transform: translateX(-50%) scaleX(0);
+        transition: .2s $fashioned_bezier;
+      }
+
+      &.active {
+        color: $generic_blue;
+
+        &::before {
+          opacity: 1;
+          transform: translateX(-50%) scaleX(1);
+        }
+      }
+    }
+  }
+
+  &_container {
+    width: 100%;
+    padding: 15px 0;
+    height: calc(100% - #{$search_box_header_height});
+    overflow: auto;
+
+    &_item {
+      width: 100%;
+      padding: 10px 20px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      //animation:
+      @include dropIn;
+      @include preAnimDelay;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &_header {
+        display: flex;
+        align-items: center;
+
+        &_user {
+          display: flex;
+
+          &_image {
+            margin-right: 20px;
+            width: 35px;
+            height: 35px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 200px;
+            }
+          }
+
+          &_title {
+            color: $generic_dark_black;
+            font-weight: 600;
+            font-family: $Helvetica_font;
+            margin-top: 6px;
+          }
+
+          &_jobTitle {
+            margin-top: 5px;
+            font-size: 11px;
+            color: $generic_black;
+            font-weight: 300;
+            //margin-left: 20px;
+          }
+
+          &_activity {
+            margin-top: 7px;
+            font-size: 11px;
+            margin-left: 20px;
+            color: $generic_grey;
+
+            span {
+              &:last-child {
+                color: $generic_black;
+              }
+            }
+          }
+
+        }
+
+      }
+
+      &_details {
+        margin-top: 10px;
+        margin-left: 55px;
+        display: flex;
+        justify-content: space-between;
+
+        &_category {
+          font-size: 12px;
+          color: $generic_grey;
+          font-family: "Quattrocento Sans", sans-serif;
+          font-weight: 900;
+
+          span {
+            &:last-child {
+              //color: $generic_black;
+              color: #d2719e;
+            }
+          }
+        }
+
+        &_actions {
+          margin-top: -20px;
+
+          &_btn {
+            height: 26px;
+          }
+        }
+
+      }
+
+    }
+  }
+
+}

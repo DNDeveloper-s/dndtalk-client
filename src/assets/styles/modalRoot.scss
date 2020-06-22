@@ -1,0 +1,107 @@
+@import "variables";
+
+#root_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+
+  .info_modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    box-shadow: 0 10px 20px -3px rgba(0,0,0,.3), 0 0 2px rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.95);
+    min-width: 350px;
+    border-radius: 4px;
+    font-family: $Helvetica_font;
+
+
+    &.hide {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.95);
+      animation: hideModal 0.4s $fashioned_bezier forwards;
+    }
+
+    &.show {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.95);
+      animation: showModal .4s $fashioned_bezier forwards;
+    }
+
+    &_header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+
+      &_image {
+        width: 35px;
+        height: 35px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 200px;
+        }
+      }
+
+      &_title {
+        margin-left: 20px;
+        color: $generic_dark_black;
+        font-size: 15px;
+      }
+    }
+
+    &_description {
+      padding: 5px 20px;
+      font-size: 13px;
+      color: $generic_black;
+    }
+
+    &_action {
+      padding: 20px;
+      display: flex;
+      flex-direction: row-reverse;
+
+      &_btn {
+        display: inline-block;
+      }
+    }
+
+  }
+
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes hideModal {
+  0% {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}

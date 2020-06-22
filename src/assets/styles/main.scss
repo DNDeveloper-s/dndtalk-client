@@ -1,0 +1,26 @@
+//@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+$generic_grey: #ccc;
+$Raleway_font: 'Raleway', sans-serif;
+$Ubuntu_font: 'Ubuntu', sans-serif;
+$Helvetica_font: 'Helvetica', sans-serif;
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $generic_grey;
+  font-family: $Helvetica_font;
+  opacity: 1; /* Firefox */
+}
+
+::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+@import "calendar";
+@import "auth";
+@import "dropdown";
+@import "dashboard";
+@import "profile";
+@import "modalRoot";
+@import "notifications";
+@import "search";

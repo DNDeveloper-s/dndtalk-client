@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap');
+
+$generic_blue: #1360ef;
+$generic_pink: #efb7ca;
+$active_blue: #3160bd;
+$generic_bg: #e2e2e2;
+$generic_white: #f1f1f1;
+$danger: #dc3545;
+$success: #28a745;
+$warning: #ffc107;
+$PT: 'PT Sans Caption', sans-serif;
+$QS: 'Quattrocento Sans', sans-serif;
+
+@mixin absCenter() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/*******************************************************************
+    Auth Pages
+ *******************/
+
+.auth_page {
+  width: 100vw;
+  height: 100vh;
+  background: $generic_bg;
+}
+
+.signup_page .auth_modal {
+  background-image: linear-gradient(to left bottom, #313668c9, #1e1634db), url("../images/nature_bg.jpg");
+  background-size: 100% auto;
+}
+
+.login_page .auth_modal {
+    background-image: linear-gradient(to left bottom, #313668c9, #1e1634db), url("../images/ocean_bg.jpg");
+  background-size: auto 100%;
+}
+
+.reset_password_page .auth_modal {
+  background-image: linear-gradient(to left bottom, #313668c9, #1e1634db), url("../images/talk_bg.jpg");
+  background-size: auto 100%;
+}
+
+.auth_modal {
+  width: 95%;
+  height: auto;
+  max-width: 450px;
+  padding: 50px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95);
+
+  @include absCenter();
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 10px 0 30px;
+
+    img {
+      width: 40px;
+      height: auto;
+    }
+  }
+
+  &_toggle_buttons {
+    display: flex;
+    width: 100%;
+
+    a {
+      margin-right: 20px;
+      word-spacing: -2px;
+      font-size: 20px;
+      font-weight: 300;
+      font-family: $QS;
+      position: relative;
+      color: rgba(187, 187, 187, 0.55);
+
+      &.active {
+        color: #ffffff;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 110%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 97%;
+          height: 2px;
+          background: $active_blue;
+          border-radius: 200px;
+        }
+      }
+    }
+  }
+
+  .main_auth {
+    width: 100%;
+  }
+
+  .auth_form {
+
+    &_message {
+      position: absolute;
+      height: 27px;
+      padding: 3px 20px;
+      //background-color: $generic_blue;
+      color: $generic_white;
+      top: 0;
+      left: 50%;
+      font-size: 13px;
+      box-shadow: 0 4px 9px -2px rgba(0,0,0, .2);
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) scaleY(0.8);
+      transform-origin: top;
+      transition: opacity 0.3s cubic-bezier(0,1.11,.6,1.12), transform .3s cubic-bezier(0,1.11,.6,1.12);
+
+      &.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) scaleY(1);
+        transform-origin: bottom;
+        transition: opacity 0.3s cubic-bezier(0,1.11,.6,1.12), transform .3s cubic-bezier(0,1.11,.6,1.12);
+      }
+
+      &.error {
+        background-color: $danger;
+      }
+
+      &.success {
+        background-color: $success;
+      }
+
+      > p {
+        white-space: nowrap;
+      }
+    }
+
+    &_notice {
+      color: #fbf6f7;
+      font-size: 14px;
+      padding: 0 15px;
+    }
+
+    &_button {
+      position: relative;
+      margin-top: 20px;
+
+      &_loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(32, 32, 32, 0.66);
+        border-radius: 200px;
+      }
+
+      button {
+        width: 100%;
+        padding: 8px;
+        background: $generic_blue;
+        color: white;
+        border-radius: 200px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: Sarala_Bold;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        transition: .1s ease;
+
+        &:hover {
+          background: rgb(18, 87, 215);
+        }
+
+        &:not(:disabled) {
+          animation: enabled .2s ease-in-out;
+        }
+
+        &:disabled {
+          background: rgba(97, 97, 97, 0.67);
+          color: #afafaf;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &_holder {
+      width: 100%;
+    }
+
+    &_input {
+
+      &_control {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        label {
+          font-size: 10px;
+          letter-spacing: 1px;
+          color: rgba(255, 255, 255, 0.7);
+          font-weight: bold;
+          margin-left: 15px;
+          margin-bottom: 4px;
+        }
+
+        input {
+          padding:8px 15px;
+          background: rgba(255, 255, 255, 0.21);
+          border-radius: 200px;
+          border: 2px solid transparent;
+          color: rgba(255, 255, 255, 1);
+          font-family: $PT;
+          font-size: 13px;
+          font-weight: bold;
+          transition: .15s ease;
+
+          &:focus {
+            border: 2px solid $generic_pink;
+
+            ~ .auth_form_input_icon svg {
+              fill: $generic_pink;
+            }
+          }
+
+          &[data-valid='false'] {
+            border: 2px solid $danger;
+
+            ~ .auth_form_input_icon {
+
+              svg {
+                fill: $danger
+              }
+
+              .auth_form_input_icon_warning {
+                svg {
+                  width: 16px;
+                  fill: $warning;
+                }
+              }
+            }
+          }
+
+          &[data-valid='true'] {
+            border: 2px solid $success;
+
+            ~ .auth_form_input_icon {
+
+              svg {
+                fill: $success
+              }
+
+              &_warning {
+                svg {
+                  fill: $warning;
+                  width: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &_icon {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+
+        &_warning {
+          height: 16px;
+          display: flex;
+          position: relative;
+
+          &::before {
+            content: attr(aria-invalid);
+            position: absolute;
+            top: 110%;
+            right: 0;
+            color: #202020;
+            padding: 0 10px;
+            background-color: white;
+            box-shadow: 0 4px 5px -2px rgba(0,0,0,0.4);
+            white-space: nowrap;
+            font-size: 12px;
+            z-index: 12;
+            transform: scale(0.8, 0.7);
+            pointer-events: none;
+            opacity: 0;
+            transition: .1s ease-in-out;
+            transform-origin: top right;
+          }
+
+          &:hover {
+            &::before {
+              transition: .2s ease-in-out;
+              transform: scale(1, 1);
+              pointer-events: auto;
+              opacity: 1;
+            }
+          }
+
+          svg {
+            width: 0px;
+            fill: $warning;
+            margin-left: 5px;
+            fill: rgba(255, 255, 255, 0.32);
+            transition: .15s ease;
+          }
+        }
+
+        .eye {
+          width: 16px;
+          height: 16px;
+          display: flex;
+          align-items: center;
+
+          svg {
+            fill: rgba(255, 255, 255, 0.32);
+            transition: .15s ease;
+          }
+
+        }
+
+
+        svg {
+          fill: rgba(255, 255, 255, 0.32);
+          transition: .15s ease;
+        }
+
+        //svg {
+        //  width: 16px;
+        //  fill: rgba(255, 255, 255, 0.32);
+        //  transition: .15s ease;
+        //
+        //  &:last-child {
+        //    width: 0px;
+        //    fill: $warning;
+        //    margin-left: 5px;
+        //  }
+        //}
+      }
+    }
+
+    &_switch {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.37);
+      text-align: center;
+
+      p {
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      a {
+        color: white;
+      }
+    }
+  }
+
+  .form_separator {
+    width: 100%;
+    height: 1px;
+    box-shadow: 0 0 2px #ffffff24;
+    border-radius: 200px;
+    background: #ffffff24;
+    margin: 35px 0;
+  }
+}
+
+@keyframes enabled {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

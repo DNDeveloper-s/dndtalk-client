@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Sarala_Bold;
+    src: url('./fonts/Sarala/Sarala-Bold.ttf');
+}
+@font-face {
+    font-family: Sarala_Reg;
+    src: url('./fonts/Sarala/Sarala-Regular.ttf');
+}
+@font-face {font-family: Helvetica;
+    src: url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.eot"); /* IE9*/
+    src: url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.woff2") format("woff2"), /* chrome、firefox */
+    url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.woff") format("woff"), /* chrome、firefox */
+    url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("./fonts/Helvetica/fontFace/0d49fc455f4a8951a42daf952412a713.svg#Helvetica Neue Regular") format("svg"); /* iOS 4.1- */
+}
