@@ -3,25 +3,31 @@ import * as PropTypes from 'prop-types';
 import axios from '../../../../../axios-dashboard';
 
 // Redux Imports
-import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../../../../../features/dashboard/dashboardSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentUser, SET_NOTIFICATIONS, selectNotifications} from "../../../../../features/dashboard/dashboardSlice";
+import {selectToken} from "../../../../../features/auth/authSlice";
 
 // Components Imports
 import Loader from "../../../../UI/Loader/Loader";
 import NotificationItem from "./NotificationItem/NotificationItem";
 
 const Notifications = (props) => {
+    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const [notifications, setNotifications] = useState(null);
+    const token = useSelector(selectToken);
+    const notifications = useSelector(selectNotifications);
 
     useEffect(() => {
         async function fetchNotifications() {
-            setNotifications(null);
-            const res = await axios.get('/notifications?userId=' + currentUser._id);
-
-            setNotifications(res.data.notifications);
+            const res = await axios.get('/notifications?userId=' + currentUser._id, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            dispatch(SET_NOTIFICATIONS(res.data.notifications));
         }
-        fetchNotifications().then().catch(e => console.error(e));
+        console.log(notifications);
+        if(Object.keys(notifications.entities).length === 0) {fetchNotifications().then().catch(e => console.error(e));}
     }, []);
 
     let notificationsEl = (
@@ -34,17 +40,21 @@ const Notifications = (props) => {
             <Loader color='#878787' />
         </div>
     );
-    if(notifications) {
-        notificationsEl = notifications.map((notification, ind) => (
-            <NotificationItem
-                key={ind}
-                image={process.env.REACT_APP_API_URI + notification.sender_id.image}
-                title={notification.sender_id.fullName}
-                activity_type={notification.activity_type}
-                timeStamp={notification.timeStamp}
-                object_url={notification.object_url}
-            />
-        ))
+    if(Object.keys(notifications.entities).length > 0) {
+        notificationsEl = notifications.results.map((notificationId, ind) => {
+            const notification = notifications.entities[notificationId];
+
+            return (
+                <NotificationItem
+                    key={ind}
+                    image={process.env.REACT_APP_API_URI + notification.sender_id.image}
+                    title={notification.sender_id.fullName}
+                    activity_type={notification.activity_type}
+                    timeStamp={notification.timeStamp}
+                    object_url={notification.object_url}
+                />
+            );
+        });
         if(notificationsEl.length === 0) {
             notificationsEl = (
                 <div className='notifications_container_no-notifications'>

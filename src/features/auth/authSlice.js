@@ -6,7 +6,7 @@ const userId = window.localStorage.getItem('userId');
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        authenticated: Boolean(bearer),
+        authenticated: Boolean(bearer) && bearer.length > 10,
         token: bearer || null,
         userId: userId
     },
@@ -24,11 +24,11 @@ export const authSlice = createSlice({
             state.token = null;
             state.userId = null;
 
-            window.localStorage.setItem('bearer', undefined);
-            window.localStorage.setItem('userId', undefined);
+            window.localStorage.removeItem('bearer');
+            window.localStorage.removeItem('userId');
         }
     }
-})
+});
 
 export const {
     LOGGED_IN,

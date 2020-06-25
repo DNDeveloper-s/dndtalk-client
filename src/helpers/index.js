@@ -1,6 +1,6 @@
 import validator from "validator/es";
 import React from 'react';
-import axios from 'axios';
+import emoji from './emojis';
 import DefaultImageAsset from '../assets/images/default.jpg';
 
 export const validatePassword = function (val) {
@@ -68,3 +68,19 @@ export const rippleClicked = function (e) {
 export const DefaultImage = () => (
     <img src={DefaultImageAsset} alt="DND-talk"/>
 );
+
+export const filterMessageWithEmoji = (message) => {
+    const messageArr = message.split(' ');
+
+    const newMessageArr = [];
+
+    messageArr.forEach(msgString => {
+        let replacedEmoji = emoji[msgString];
+        if(replacedEmoji) {
+            return newMessageArr.push(replacedEmoji);
+        }
+        newMessageArr.push(msgString);
+    });
+
+    return newMessageArr.join(' ');
+};

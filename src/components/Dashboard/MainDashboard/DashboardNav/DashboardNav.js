@@ -9,7 +9,7 @@ import Notifications from "./Notifications/Notifications";
 import Search from "./Search/Search";
 
 // Redux imports
-import {selectCurrentUser} from "../../../../features/dashboard/dashboardSlice";
+import {selectCurrentUser, LOGGED_OUT} from "../../../../features/dashboard/dashboardSlice";
 import {LOG_OUT} from "../../../../features/auth/authSlice";
 
 
@@ -24,6 +24,7 @@ const DashboardNav = props => {
 
     function logOut() {
         dispatch(LOG_OUT());
+        dispatch(LOGGED_OUT());
     }
 
     let dropdownItems = [
@@ -66,7 +67,7 @@ const DashboardNav = props => {
     function closeDropDownOnOut(e) {
         const path = e.path || (e.composedPath && e.composedPath());
         if(!path.includes(dropdownRef.current)) {
-            setShow(false);
+            setShow(false)
         }
         if(!path.includes(notificationsRef.current)) {
             setShowNotifications(false);

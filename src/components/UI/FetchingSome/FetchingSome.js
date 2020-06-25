@@ -2,7 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 
 // Components Imports
-import Loader from "../../../../UI/Loader/Loader";
+import Loader from "../Loader/Loader";
 
 const FetchingSome = (props) => (
     <div style={{

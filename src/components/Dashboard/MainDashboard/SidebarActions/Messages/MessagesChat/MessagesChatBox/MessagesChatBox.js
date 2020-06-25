@@ -11,13 +11,23 @@ const MessagesChatBox = props => {
     const chatBoxRef = useRef();
     const loadedConversation = useSelector(selectLoadedConversation);
 
+    // This useEffect is for switch between conversations
+    useEffect(() => {
+        chatBoxRef.current.scrollTo({
+            top: chatBoxRef.current.scrollHeight,
+            left: 0,
+            // behavior: 'smooth',
+        })
+    }, [loadedConversation._id]);
+
+    // This useEffect is for new chats
     useEffect(() => {
         chatBoxRef.current.scrollTo({
             top: chatBoxRef.current.scrollHeight,
             left: 0,
             behavior: 'smooth',
         })
-    }, [loadedConversation]);
+    }, [loadedConversation.chats]);
 
     const chats = loadedConversation.chats.map((chat, ind) => {
         return (
@@ -32,15 +42,6 @@ const MessagesChatBox = props => {
     return (
         <div className='dashboard_main_messages_chat_box' ref={chatBoxRef}>
             {chats}
-            {/*<MessagesChatBoxMessage />*/}
-            {/*<MessagesChatBoxMessage />*/}
-            {/*<MessagesChatBoxMessage byMe />*/}
-            {/*<MessagesChatBoxMessage />*/}
-            {/*<MessagesChatBoxMessage byMe />*/}
-            {/*<MessagesChatBoxMessage byMe />*/}
-            {/*<MessagesChatBoxMessage byMe />*/}
-            {/*<MessagesChatBoxMessage />*/}
-            {/*<MessagesChatBoxMessage typing={true} />*/}
         </div>
     )
 }

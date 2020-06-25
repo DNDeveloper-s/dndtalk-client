@@ -37,6 +37,10 @@ const ProfileSide = props => {
     async function sendFriendReqHandler() {
         const res = await axios.post('/send_friend_req', {
             toUserId: currentUser._id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
         });
         console.log(res.data);
         setResponse(res.data);
@@ -57,7 +61,11 @@ const ProfileSide = props => {
     }
 
     async function loadConversation(userId) {
-        const res = await axios.get('/fetchPrivateConversation?toUserId=' + userId);
+        const res = await axios.get('/fetchPrivateConversation?toUserId=' + userId, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
 
         console.log(res.data);
 

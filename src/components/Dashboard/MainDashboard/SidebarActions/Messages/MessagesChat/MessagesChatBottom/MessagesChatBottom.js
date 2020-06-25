@@ -6,15 +6,24 @@ import Button from "../../../../../../UI/Button/Button";
 import axios from "../../../../../../../axios-dashboard";
 import { selectLoadedConversation, SET_CHAT, selectCurrentUser, SET_TEMP_CHAT } from "../../../../../../../features/dashboard/dashboardSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {selectToken} from "../../../../../../../features/auth/authSlice";
 import {v4 as uuidv4} from 'uuid';
+import {filterMessageWithEmoji} from "../../../../../../../helpers";
 
 const MessagesChatBottom = props => {
     const dispatch = useDispatch();
     let inputMessageRef = useRef();
     const loadedConversation = useSelector(selectLoadedConversation);
     const currentUser = useSelector(selectCurrentUser);
+    const token = useSelector(selectToken);
+
+    function keyUpHandler(e) {
+        const value = e.target.value;
+        e.target.value = filterMessageWithEmoji(value);
+    }
 
     async function sendMessageHandler() {
+
         // Returning immediately if the message string is empty
         if(inputMessageRef.current.value.trim().length === 0) return;
 
@@ -24,9 +33,8 @@ const MessagesChatBottom = props => {
         }
 
         // Checking if the last chat by the same user to push onto the same stack
-        const isLastMessageIsYours = loadedConversation.chats[loadedConversation.chats.length - 1].sentBy._id === currentUser._id;
+        const isLastMessageIsYours = loadedConversation.chats.length > 0 && loadedConversation.chats[loadedConversation.chats.length - 1].sentBy._id === currentUser._id;
 
-        console.log(isLastMessageIsYours);
 
         let tempId = null;
         if(!isLastMessageIsYours) tempId = uuidv4();
@@ -50,9 +58,12 @@ const MessagesChatBottom = props => {
             message: inputValue,
             toUserId,
             tempId,
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
         });
 
-        console.log(res.data);
         if(res.data.type === 'success') {
 
             dispatch(SET_CHAT({
@@ -69,7 +80,7 @@ const MessagesChatBottom = props => {
             <div className="dashboard_main_messages_chat_bottom_input">
                 <input type="text" placeholder='Type a message here...' ref={inputMessageRef} onKeyDown={(e) => {
                     if(e.key === 'Enter') sendMessageHandler().then().catch(e => console.error(e.message));
-                }}/>
+                }} onKeyUp={keyUpHandler}/>
             </div>
             <div className="dashboard_main_messages_chat_bottom_tools">
                 <div className="dashboard_main_messages_chat_bottom_tools_attachments">

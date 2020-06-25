@@ -1,6 +1,12 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import * as PropTypes from 'prop-types';
 import moment from "moment";
+import axios from "../../../../../../../../axios-dashboard";
+
+// Redux Imports
+import {CHAT_IS_READ} from "../../../../../../../../features/dashboard/dashboardSlice";
+import {selectToken} from "../../../../../../../../features/auth/authSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 import Loader from "../../../../../../../UI/Loader/Loader";
 import NotificationIcon from "../../../../../../../UI/NotificationIcon/NotificationIcon";
@@ -8,6 +14,32 @@ import NotificationIcon from "../../../../../../../UI/NotificationIcon/Notificat
 import * as colors from "../../../../../../../../helpers/colors";
 
 const MessagesChatBoxMessage = props => {
+    const dispatch = useDispatch();
+    const token = useSelector(selectToken);
+
+    useEffect(() => {
+
+        async function postReadMessage() {
+            const res = await axios.post('/chatIsRead', {
+                chatId: props.chat._id
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            console.log(res.data);
+        }
+        console.log('postReadMessage...', 'Use Effect called');
+
+        if(!Boolean(props.chat.isRead) && !props.chat.sentBy.itsYou ) {
+            postReadMessage().then().catch(e => console.error(e.message));
+
+            dispatch(CHAT_IS_READ({
+                conversationId: props.chat.conversationId,
+                chatId: props.chat._id
+            }));
+        }
+    }, [props.chat]);
 
     let typingClass = ['dashboard_main_messages_chat_box_message_details_line'];
 
@@ -49,7 +81,7 @@ const MessagesChatBoxMessage = props => {
                 {
                     props.byMe ?
                         <div className='dashboard_main_messages_chat_box_message_details_tick'>
-                            <NotificationIcon color={props.chat.isSent ? colors.LIGHT_GREEN : colors.LIGHT_RED} />
+                            <NotificationIcon color={props.chat.isReadByAll ? colors.LIGHT_GREEN : props.chat.isSent ? colors.SKY_BLUE : colors.LIGHT_RED} />
                         </div>
                     : null
                 }

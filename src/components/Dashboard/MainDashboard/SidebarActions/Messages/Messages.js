@@ -9,15 +9,17 @@ import {
     SET_CONVERSATIONS,
     SET_CUR_CONVERSATION
 } from "../../../../../features/dashboard/dashboardSlice";
+import {selectToken} from "../../../../../features/auth/authSlice";
 
 // Components Imports
 import MessagesNav from "./MessagesNav/MessagesNav";
 import MessagesChat from "./MessagesChat/MessagesChat";
 import Loader from "../../../../UI/Loader/Loader";
-import FetchingSome from "./FetchingSome";
+import FetchingSome from "../../../../UI/FetchingSome/FetchingSome";
 
 const Messages = props => {
     const dispatch = useDispatch();
+    const token = useSelector(selectToken);
     const loadedConversation = useSelector(selectLoadedConversation);
 
     const [loaded, setLoaded] = useState(false);
@@ -32,13 +34,16 @@ const Messages = props => {
         // Fetching Conversations
         async function fetchConversations() {
             setLoaded(false);
-            const res = await axios.get('/conversations');
+            const res = await axios.get('/conversations', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
 
             if(res.data.type === 'success') {
                 dispatch(SET_CONVERSATIONS({
                     conversations: res.data.conversations
                 }));
-                console.log(res.data.conversations);
                 if(loadConversationId) {
                     dispatch(SET_CUR_CONVERSATION(loadConversationId));
                 } else {

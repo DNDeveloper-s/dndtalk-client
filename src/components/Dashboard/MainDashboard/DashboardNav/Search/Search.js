@@ -3,14 +3,14 @@ import { FiSearch } from "react-icons/fi";
 import axios from "../../../../../axios-dashboard";
 import {withRouter} from 'react-router-dom';
 
+// Redux Imports
+import {selectToken} from "../../../../../features/auth/authSlice";
+import {useSelector} from "react-redux";
+
 // Components Imports
 import SelectDropdown from "../../../../UI/SelectDropdown/SelectDropdown";
 import SearchHeaderItem from "./SearchHeaderItem/SearchHeaderItem";
 import SearchItem from "./SearchItem/SearchItem";
-import Button from "../../../../UI/Button/Button";
-
-// Images Imports
-import {DefaultImage} from "../../../../../helpers";
 
 const searchHeaderItems = [
     'All',
@@ -22,37 +22,39 @@ const searchHeaderItems = [
 ];
 
 const Search = (props) => {
+    const token = useSelector(selectToken);
     const inputRef = useRef();
     const [value, setValue] = useState('');
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [filter, setFilter] = useState('All');
     const [searchedItems, setSearchedItems] = useState(null);
 
-    useEffect(() => {
-        document.addEventListener('click', clickedOutSide);
-
-        return () => {
-            document.addEventListener('click', clickedOutSide);
-        }
-    }, []);
-
     function clickedOutSide(e) {
         const path = e.path || (e.composedPath && e.composedPath());
         if(!path.includes(inputRef.current)) {
-            setShowSearchBox(false);
+            closeSearchBox();
         }
+    }
+
+    function closeSearchBox() {
+        setShowSearchBox(false);
+        document.removeEventListener('click', clickedOutSide);
     }
 
     async function inputChanged(e) {
         setValue(e.target.value);
         if(e.target.value.trim().length > 0) {
-            const res = await axios.get('/search?searchQuery=' + e.target.value);
+            const res = await axios.get('/search?searchQuery=' + e.target.value, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
             setSearchedItems(res.data.users);
         }
     }
 
     function goToProfile(userId) {
-        setShowSearchBox(false);
+        closeSearchBox();
         props.history.push('/dashboard/profile?userId=' + userId);
     }
 
@@ -83,7 +85,10 @@ const Search = (props) => {
 
     return (
         <div className='dashboard_main_nav_input' ref={inputRef}>
-            <input type="text" placeholder='Search' value={value} onChange={inputChanged} onFocus={() => setShowSearchBox(true)}/>
+            <input type="text" placeholder='Search' value={value} onChange={inputChanged} onFocus={() => {
+                setShowSearchBox(true);
+                document.addEventListener('click', clickedOutSide);
+            }}/>
             <div className='dashboard_main_nav_input_icon'>
                 <FiSearch />
             </div>

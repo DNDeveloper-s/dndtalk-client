@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 // Redux Imports'
 import {useSelector} from "react-redux";
-import {selectCurrentUser, selectLoadedConversation} from "../../../../../../features/dashboard/dashboardSlice";
+import {selectCurrentUser, selectLoadedConversation, selectConversations} from "../../../../../../features/dashboard/dashboardSlice";
 
 // Components Imports
 import MessagesNavHeader from "./MessagesNavHeader/MessagesNavHeader";
@@ -11,6 +11,7 @@ import MessagesNavPaneCard from "./MessagesNavPaneCard/MessagesNavPaneCard";
 const MessagesNav = props => {
     let curLoggedInUser = useSelector(selectCurrentUser);
     let loadedConversation = useSelector(selectLoadedConversation);
+    let curUserConversations = useSelector(selectConversations);
 
     const [activeCategory, setActiveCategory] = useState('People');
     const [conversations, setConversations] = useState(null);
@@ -23,13 +24,13 @@ const MessagesNav = props => {
                 _id: curConversation._id,
                 type: curConversation.type,
                 users: curConversation.users,
-                chats: curConversation.chats
+                chats: curConversation.chats,
+                hasNewMessages: curConversation.hasNewMessages
             })
         });
 
         setConversations(conversationsArr);
-        console.log(curLoggedInUser, conversationsArr);
-    }, [loadedConversation]);
+    }, [curUserConversations]);
 
     let paneCards = null;
 

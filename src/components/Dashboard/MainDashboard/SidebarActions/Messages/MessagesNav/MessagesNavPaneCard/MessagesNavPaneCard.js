@@ -77,9 +77,12 @@ const MessagesNavPaneCard = props => {
                             <p>{otherUser.fullName}</p>
                         </div>
                     </div>
-                    <div className='dashboard_main_messages_nav_pane_card_header_notification'>
-                        <NotificationIcon />
-                    </div>
+                    {props.conversation.hasNewMessages ?
+                        <div className='dashboard_main_messages_nav_pane_card_header_notification'>
+                            <NotificationIcon />
+                        </div> :
+                    null}
+
                     <div className='dashboard_main_messages_nav_pane_card_header_icon'>
                         <FaEllipsisH />
                     </div>

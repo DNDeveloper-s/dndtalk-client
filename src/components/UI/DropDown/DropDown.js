@@ -17,11 +17,11 @@ const DropDown = props => {
             </ul>
         </div>
     )
-}
+};
 
 DropDown.propTypes = {
     theme: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string, clicked: PropTypes.func}))
-}
+};
 
 export default DropDown;

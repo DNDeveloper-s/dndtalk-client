@@ -6,10 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import Sidebar from "./Sidebar/Sidebar";
 import MainDashboard from "./MainDashboard/MainDashboard";
 import Loader from "../UI/Loader/Loader";
-import FetchingSome from "./MainDashboard/SidebarActions/Messages/FetchingSome";
+import FetchingSome from "../UI/FetchingSome/FetchingSome";
 
 // Redux Imports
-import { SET_CURRENT_USER, ADD_NOTIFICATION, REMOVE_NOTIFICATION, SET_CHAT } from "../../features/dashboard/dashboardSlice";
+import { SET_CURRENT_USER, ADD_NOTIFICATION, REMOVE_NOTIFICATION, SET_CHAT, CHAT_IS_READ_BY_ALL } from "../../features/dashboard/dashboardSlice";
 import { selectToken } from "../../features/auth/authSlice";
 import { START_ACTION, STOP_ACTION } from "../../features/ui/uiSlice";
 
@@ -52,10 +52,18 @@ const Dashboard = props => {
         });
 
         io.on('message_rcvd', data => {
-            console.log(data);
             dispatch(SET_CHAT({
                 conversationId: data.conversationId,
                 chat: data.chat
+            }));
+        });
+
+        io.on('chat_is_read_by_all', data => {
+            console.log('Chat is read by all');
+            dispatch(CHAT_IS_READ_BY_ALL({
+                chatId: data.chatId,
+                conversationId: data.conversationId,
+                isReadByAll: data.isReadByAll
             }))
         });
 
